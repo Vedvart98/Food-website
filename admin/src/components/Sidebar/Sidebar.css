@@ -1,0 +1,23 @@
+.sidebar-container {
+    width: 200px;
+    height: 100vh;
+    position: fixed;
+    background-color: #f4f4f4;
+    /* margin-top: 40px; */
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    justify-content: center;
+}
+
+.sidebar ul {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+}
+
+.sidebar ul li {
+    color: black;
+    font-size: 18px;
+    font-weight: 500;
+}

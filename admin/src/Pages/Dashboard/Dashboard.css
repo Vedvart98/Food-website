@@ -1,0 +1,102 @@
+/* Dashboard container */
+.dashboard-container {
+    width: calc(100vw - 320px);
+    height: calc(100vh - 70px);
+    /* if header is 70px */
+    padding: 2rem;
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    animation: fadeSlide 0.8s ease-out;
+}
+
+/* Dashboard header text */
+.dashboard {
+    text-align: center;
+}
+
+.dashboard h2 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.dashboard p {
+    color: #555;
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+}
+
+/* Stats grid */
+.dashboard-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+/* Each stat card */
+.stat-item {
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.stat-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Stat titles */
+.stat-item h3 {
+    color: #6c63ff;
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+/* Stat numbers */
+.stat-item p {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+}
+
+/* Entry animation */
+@keyframes fadeSlide {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+    .dashboard-container {
+        padding: 1rem;
+    }
+
+    .dashboard h2 {
+        font-size: 1.5rem;
+    }
+
+    .stat-item {
+        padding: 1rem;
+    }
+
+    .stat-item p {
+        font-size: 1.5rem;
+    }
+}

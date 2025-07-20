@@ -1,0 +1,11 @@
+.app-content {
+    display: flex;
+    gap: 30px;
+    margin-top: 60px;
+}
+
+.content {
+    /* margin-top: 60px; */
+    margin-left: 240px;
+    width: 100%;
+}

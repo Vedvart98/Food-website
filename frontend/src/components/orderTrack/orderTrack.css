@@ -1,0 +1,107 @@
+.trackContainer {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: #f9fafb;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.trackContainer h2 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.trackButton {
+  background-color: #4cafef;
+  color: #fff;
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: 50px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.trackButton:disabled {
+  background-color: #a0c4ff;
+  cursor: not-allowed;
+}
+
+.trackButton:hover:not(:disabled) {
+  background-color: #0284c7;
+  transform: translateY(-2px);
+}
+
+.errorMessage {
+  color: #e11d48;
+  margin: 1rem 0;
+  font-weight: 500;
+}
+
+.orderList {
+  /*ul*/
+  list-style: none;
+  padding: 0;
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.orderCard {
+  /* li */
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.orderHeader {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.orderHeader p {
+  margin: 0.2rem 0;
+  color: #555;
+}
+
+.orderBody {
+  text-align: left;
+  margin-bottom: 1rem;
+}
+
+.orderBody p {
+  margin: 0.3rem 0;
+  color: #444;
+}
+
+.orderItems {
+  text-align: left;
+}
+
+.orderItems h4 {
+  margin-bottom: 0.5rem;
+  color: #0284c7;
+}
+
+.orderItems li {
+  margin-left: 1rem;
+  color: #333;
+}
+
+@media (max-width: 600px) {
+  .trackContainer {
+    padding: 1rem;
+  }
+
+  .trackButton {
+    width: 100%;
+  }
+}

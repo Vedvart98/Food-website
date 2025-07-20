@@ -1,0 +1,31 @@
+.btn {
+  width: 100%;
+  padding: 8px;
+  background-color: rgb(230, 176, 76);
+  border-radius: 10px;
+  border: 2px solid rgb(230, 176, 76);
+  color: white;
+  font-size: 16px;
+
+
+}
+
+.btn:hover {
+  background-color: rgb(237, 156, 5);
+  border-color: rgb(237, 156, 5);
+  cursor: pointer;
+}
+
+button,
+input,
+input::placeholder,
+select {
+  font-family: poppins;
+}
+
+@media screen and (max-width: 768px) {
+  .btn {
+    font-size: 14px;
+    padding: 8px;
+  }
+}

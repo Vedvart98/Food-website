@@ -1,0 +1,25 @@
+.order {
+    height: 100vh;
+    width: calc(100vw - 304px);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.order-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.order-item {
+    background: rgb(238, 244, 244);
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
