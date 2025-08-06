@@ -9,7 +9,7 @@ function Restaurant({ name, imageUrl, description, review, location }) {
     <RestaurantContainer>
       <div className="resto-card">
         <div className='essential'>
-          <img src={`${API_URL}${imageUrl}`} alt={name} className='icon' />
+          <img src={`http://localhost:5000${imageUrl}`} alt={name} className='icon' />
           <div className='resto-text'>
             <h4>{name}</h4>
             <p className='desc'>Description: {description}</p>
@@ -29,7 +29,7 @@ const RestaurantContainer = styled.div`
 background: #fff;
   border-radius: 10px;
   padding: 1rem;
-  box-shadow: 0 4px 10px rgba(0 0 0 / 0.05);
+  // box-shadow: 0 4px 10px rgba(0 0 0 / 0.05);
   max-width: 320px;
 }
  
@@ -49,7 +49,7 @@ background: #fff;
 .resto-text{
     display:flex;
     flex-direction:column;
-    gap:0.25rem;
+    gap:1rem;
     font-size:0.9rem;
     color:black;
    }

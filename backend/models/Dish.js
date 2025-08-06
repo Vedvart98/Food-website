@@ -4,9 +4,11 @@ const DishSchema = new mongoose.Schema({
 
     name: { type: String, required: true },
     price: { type: Number, required: true },
-    hotelName: { type: String, required: true },
+    restoName: { type: String, required: true },
     imageUrl: { type: String, required: true },
-    review: { type: String, required: true }
+    review: { type: Number, required: true },
+    description: { type: String, required: true },
+    ingredients: { type: String, required: true }
 },
     { collection: "dishes" });
 

@@ -4,7 +4,7 @@ import { StoreContext } from '../Context/StoreContext'
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../Context/authContext';
-const API_URL = import.meta.env.REACT_APP_API_URL;
+// const API_URL = import.meta.env.REACT_APP_API_URL;
 
 const Cart = () => {
   const { cartItem, dishes, removeCartItem, getTotalCartAmount, dishById } = useContext(StoreContext);
@@ -20,34 +20,6 @@ const Cart = () => {
 
   return (
     <CartContainer className='cart'>
-      <div className='cart-items'>
-        <div className='cart-items-title'>
-          <p>Items</p>
-          <p>Title</p>
-          <p>Price</p>
-          <p>Quantity</p>
-          <p>Total</p>
-          <p>Remove</p>
-        </div>
-        <hr />
-        {Object.keys(cartItem).length === 0 && <p>You cart is empty!!</p>}
-        {Object.entries(cartItem).map(([_id, quantity]) => {
-          const dish = dishById.get(_id);
-          if (!dish) return null;  //safeguard
-
-          return (
-            <div className='cart-items-item' key={_id}>
-              <img src={`${API_URL}${dish.imageUrl}`} alt={dish.name} style={{ width: '60px', height: '60px' }} />
-
-              <p>{dish.name}</p>
-              <p>$ {dish.price}</p>
-              <p>{quantity}</p>
-              <p>$ {dish.price * quantity}</p>
-              <img onClick={() => removeCartItem(_id)} src="https://cdn-icons-png.freepik.com/256/484/484611.png?ga=GA1.1.1249373621.1745418540&semt=ais_hybrid" alt="" />
-            </div>
-          );
-        })}
-      </div>
       <div className='cartTotal'>
         <h2>Total Items: {getTotalItems()}</h2>
         <p>Total Amount: ${getTotalCartAmount()}</p>
@@ -56,7 +28,7 @@ const Cart = () => {
             <Link to='/checkout'>
               <button className='btn'>PROCEED TO CHECKOUT</button>
             </Link>
-          ) :
+          )  :
             (
               // If not authenticated, redirect to login
               <Link to='/login'>
@@ -74,35 +46,65 @@ const Cart = () => {
         }
 
       </div>
+      <div className='cart-items'>
+        {Object.keys(cartItem).length === 0 && <p>You cart is empty!!</p>}
+        {Object.entries(cartItem).map(([_id, quantity]) => {
+          const dish = dishById.get(_id);
+          if (!dish) return null;  //safeguard
+
+          return (
+            <div className='cart-items-item' key={_id}>
+              <img src={`http://localhost:5000${dish.imageUrl}`} alt={dish.name} className='photo' />
+            <div className='dish-details'>
+              <p><h3>{dish.name}</h3></p>
+              <p><strong>Price per unit:</strong> $ {dish.price}</p>
+              <p><strong>Quantity:</strong> {quantity}</p>
+              <p><strong>Total:</strong> $ {dish.price * quantity}</p>
+            </div>
+              <img onClick={() => removeCartItem(_id)} src="https://cdn-icons-png.freepik.com/256/484/484611.png?ga=GA1.1.1249373621.1745418540&semt=ais_hybrid" alt="" />
+            </div>
+          );
+        })}
+      </div>
+
     </CartContainer>
   );
 };
 
 export default Cart;
 const CartContainer = styled.div`
-  margin:100px 0px;
+  // margin:100px 0px;
   display:flex;
-  justify-content:space-between;
+  flex-direction:column;
+  gap:20px;
 
 .cart-items{
-display:flex;
-flex-direction:column;
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
 gap:20px;
 }
 
-.cart-items-title{
-display: grid;
-  grid-template-columns: 1fr 2fr 1fr 1fr 1fr 1fr;
-  gap:60px;
-  }
 .cart-items-item{
-  display: grid;
-  grid-template-columns: 1fr 2fr 1fr 1fr 1fr 1fr;
-  gap:60px;
+  display:flex;
+  flex-direction:column;
+  border:1px solid #ddd;
+  border-radius:10px;
+  gap:1.5rem;
+  padding:1.5rem;
+  align-items:center;
+  box-shadow:0 4px 12px rgba(0,0,0,0.1);
 }
+  .cart-items-item .photo{
+  width:300px;
+  height:200px;
+  border-radius:10px;
+  }
 .cart-items-item img{
 height:15px;
 width:15px;
+}
+.dish-details{
+  align-items:left;
 }
 .cartTotal{
 display:flex;

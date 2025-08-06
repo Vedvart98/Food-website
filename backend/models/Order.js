@@ -5,6 +5,12 @@ const OrderSchema = new mongoose.Schema({
         unique: true,
         default: () => `ORD-${Date.now()}-${Math.floor(Math.random() * 1000)}`
     },
+    user:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    }
+    ,
     name: {
         type: String,
         required: true

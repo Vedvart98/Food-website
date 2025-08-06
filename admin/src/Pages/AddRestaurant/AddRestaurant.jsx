@@ -4,13 +4,12 @@ import axios from 'axios';
 import './AddRestaurant.css';
 import { toast } from 'react-toastify';
 import { assets } from '../../assets/assets';
-const API_URL = import.meta.env.REACT_APP_API_URL;
 
 const AddRestaurant = () => {
     const [image, setImage] = useState(null);
     const [preview, setPreview] = useState(null);
     const [data, setData] = useState({
-        hotelName: '',
+        restoName: '',
         description: '',
         review: '',
         location: '',
@@ -28,14 +27,14 @@ const AddRestaurant = () => {
         e.preventDefault();
         console.log('submit');
         const formData = new FormData();
-        formData.append('hotelName', data.hotelName);
+        formData.append('restoName', data.restoName);
         formData.append('description', data.description);
         formData.append('review', data.review);
         formData.append('location', data.location);
         formData.append('image', image);
         try {
             const token = localStorage.getItem('token');
-            const res = await axios.post(`${API_URL}/api/hotels`, formData, {
+            const res = await axios.post(`http://localhost:5000/api/restaurants`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     Authorization: `Bearer ${token}`
@@ -44,7 +43,7 @@ const AddRestaurant = () => {
             if (res.data.success) {
                 console.log('success');
                 setData({
-                    hotelName: '',
+                    restoName: '',
                     description: '',
                     review: '',
                     location: ''
@@ -82,12 +81,12 @@ const AddRestaurant = () => {
                 <div className='resto-details'>
 
                     <div className="addRestoName">
-                        <label htmlFor="hotelName">Hotel Name: </label>
-                        <input type="text" name="hotelName" id="hotelName" onChange={handleChange} value={data.hotelName} placeholder='Enter hotel name' required />
+                        <label htmlFor="restoName">Restaurant Name: </label>
+                        <input type="text" name="restoName" id="restoName" onChange={handleChange} value={data.restoName} placeholder='Enter restaurant name' required />
                     </div>
                     <div className="description">
                         <label htmlFor="description">Description: </label>
-                        <input type="text" name="description" id="description" onChange={handleChange} value={data.description} placeholder='Enter Hotel Description' required />
+                        <input type="text" name="description" id="description" onChange={handleChange} value={data.description} placeholder='Enter Restaurant Description' required />
                     </div>
                     <div className="addReview">
                         <label htmlFor="review">Review: </label>

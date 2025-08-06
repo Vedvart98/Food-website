@@ -35,15 +35,15 @@
 }
 
 .lists .resto-card .icon {
-    width: 400px;
-    height: 200px;
+    /* width: 400px; */
+    height: 300px;
     object-fit: cover;
     border-radius: 10px;
     margin-bottom: 1rem;
 }
 
 .resto-card .restoDetails {
-    width: 400px;
+    /* width: 400px; */
     display: flex;
     flex-direction: column;
     justify-content: center;

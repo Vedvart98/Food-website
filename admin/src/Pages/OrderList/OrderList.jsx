@@ -1,14 +1,14 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import './order.css'
-const API_URL = import.meta.env.REACT_APP_API_URL;
+import './OrderList.css'
+// const API_URL = import.meta.env.REACT_APP_API_URL;
 
-const Order = () => {
+const OrderList= () => {
   const [orders, setOrders] = useState([]);
   const fetchAllOrders = async () => {
     try {
 
-      const res = await axios.get(`${API_URL}/api/orders/list`);
+      const res = await axios.get(`http://localhost:5000/api/orders/list`);
       if (res.data.success) {
         setOrders(res.data.data);
         console.log(res.data.data);
@@ -23,7 +23,7 @@ const Order = () => {
   const statusHandler = async (event, _id) => {
     try {
 
-      const res = await axios.put(`${API_URL}/api/orders/status`, {
+      const res = await axios.put(`http://localhost:5000/api/orders/status`, {
         _id,
         status: event.target.value,
       });
@@ -81,4 +81,4 @@ const Order = () => {
   )
 }
 
-export default Order
+export default OrderList

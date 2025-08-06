@@ -1,17 +1,15 @@
 import React, { useEffect } from 'react'
 import axios from 'axios'
-import './list.css'
+import './DishList.css'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
-const API_URL = import.meta.env.REACT_APP_API_URL;
-
-const List = () => {
+const DishList = () => {
   const [dishes, setDishes] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const fetchAllDishes = async () => {
     try {
-      const res = await axios.get(`${API_URL}/api/dishes`);
+      const res = await axios.get(`http://localhost:5000/api/dishes`);
       setDishes(res.data);
       console.log(res.data);
     } catch (err) {
@@ -23,7 +21,7 @@ const List = () => {
     setLoading(false);
   }, []);
   const handleDelete = async (id) => {
-    axios.delete(`${API_URL}/api/dishes/${id}`).then(() => {
+    axios.delete(`http://localhost:5000/api/dishes/${id}`).then(() => {
       setDishes(dishes.filter(dish => dish._id !== id));
     });
   };
@@ -36,11 +34,12 @@ const List = () => {
           dishes.map(dish => (
             <li key={dish._id} className='dish-card'>
               <div>
-                <img src={`${API_URL}${dish.imageUrl}`} alt="dish" className='icon' />
+                <img src={`http://localhost:5000${dish.imageUrl}`} alt="dish" className='icon' />
               </div>
               <div className='dish-details'>
                 <p>{dish.name} - ${dish.price}/unit</p>
-                <p>{dish.hotelName}</p>
+                <p>{dish.restoName}</p>
+                {/* <p>{dish.description} </p> */}
               </div>
               <div className='buttons'>
 
@@ -62,4 +61,4 @@ const List = () => {
   )
 }
 
-export default List
+export default DishList

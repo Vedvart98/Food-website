@@ -15,13 +15,14 @@ const Checkout = () => {
     try {
       const randomOrderId = `ORD-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
       const token = localStorage.getItem('token'); // our needs auth
-      const res = await axios.post(`${API_URL}/api/orders`, {
+      const user = JSON.parse(localStorage.getItem('user'));
+      const res = await axios.post(`http://localhost:5000/api/orders`, {
         orderId: randomOrderId,
         ...form,
         items: Object.entries(cartItem).map(([id, qty]) => {
           const dish = dishes.find(d => d._id === id);
           return {
-            id,
+            _id: id,
             name: dish?.name,
             quantity: qty,
             price: dish?.price,
@@ -29,6 +30,7 @@ const Checkout = () => {
           };
         }),
         amount: getTotalCartAmount(),
+        user: user?._id,
       }, {
         headers: {
           Authorization: `Bearer ${token}` // send token in header
@@ -58,7 +60,7 @@ const Checkout = () => {
           if (!dish) return null;
           return (
             <CartRow key={id}>
-              <img src={`${API_URL}${dish.imageUrl}`} alt={dish.name} />
+              <img src={`http://localhost:5000${dish.imageUrl}`} alt={dish.name} />
               <div>
                 <strong>{dish.name}</strong>
                 <QtyControls>

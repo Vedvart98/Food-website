@@ -4,24 +4,24 @@ import './RestaurantList.css'
 import { useEffect } from 'react';
 import { useState } from 'react'
 const RestoList = () => {
-    const [hotels, setHotels] = useState([]);
+    const [restaurants, setRestaurants] = useState([]);
     const [loading, setLoading] = useState(true);
-    const fetchHotels = async () => {
+    const fetchRestaurants = async () => {
         try {
-            const res = await axios.get(`${API_URL}/api/hotels`);
-            setHotels(res.data);
+            const res = await axios.get(`http://localhost:5000/api/restaurants`);
+            setRestaurants(res.data);
             console.log(res.data);
         } catch (error) {
-            console.error('Something went wrong while fetching hotels');
+            console.error('Something went wrong while fetching restaurants');
         }
     }
     useEffect(() => {
-        fetchHotels();
+        fetchRestaurants();
         setLoading(false);
     }, []);
     const handleDelete = async (id) => {
-        axios.delete(`${API_URL}/api/hotels/${id}`).then(() => {
-            setHotels(hotels.filter(hotel => hotel._id !== id));
+        axios.delete(`http://localhost:5000/api/restaurants/${id}`).then(() => {
+            setRestaurants(restaurants.filter(restaurant => restaurant._id !== id));
         });
     }
     if (loading) return <p>Loading restaurants...</p>
@@ -29,20 +29,24 @@ const RestoList = () => {
         <div className='resto-container'>
             <h2>List of Restaurants</h2>
             <ul className="lists">
-                {Array.isArray(hotels) && hotels.length > 0 ? (
-                    hotels.map(hotel => (
-                        <li key={hotel._id} className='resto-card'>
-                            <div>
-                                <img src={`${API_URL}${hotel.imageUrl}`} alt="Restaurant" className='icon' />
-                            </div>
+                {Array.isArray(restaurants) && restaurants.length > 0 ? (
+                    restaurants.map(restaurant => (
+                        <li key={restaurant._id} className='resto-card'>
+                            
+                                <img src={`http://localhost:5000${restaurant.imageUrl}`} alt="Restaurant" className='icon' />
+                            
                             <div className="restoDetails">
-                                <p><strong>{hotel.hotelName}</strong></p>
-                                <p>Description: {hotel.description}</p>
-                                <p>Location: {hotel.location}</p>
+                                <p><strong>{restaurant.restaurantName}</strong></p>
+                                <p>Description: {restaurant.description}</p>
+                                <p>Location: {restaurant.location}</p>
                             </div>
                             <div className="buttons">
-                                <button className="btn" onClick={() => handleDelete(hotel._id)}>Delete</button>
+                                
+                                <button className="btn" onClick={() => handleDelete(restaurant._id)}>Delete</button>
+                                
                                 <button className='btn'>Edit</button>
+
+                              
                             </div>
                         </li>
                     ))

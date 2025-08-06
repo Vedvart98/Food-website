@@ -6,10 +6,14 @@ import Restaurant from './Restaurant';
 import styled from 'styled-components';
 import { StoreContext } from '../Context/StoreContext';
 
+const normalize = (s = '') =>
+  s.normalize('NFKD').replace(/[^\w\s]/g, '').toLowerCase().trim();
+
 function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 const Partners = () => {
+  const [params] = useSearchParams();
   const [showButton, setShowButton] = useState(false);
   const scrollRef = useRef(null);
   const scroll = (direction) => {
@@ -21,33 +25,44 @@ const Partners = () => {
       });
     }
   };
-
   const query = useQuery().get('query') || '';
-  const { hotels } = useContext(StoreContext);
-  const hotel = query.toLowerCase();
-  const filteredHotels = hotels.filter(
-    (h) => h.location.toLowerCase().includes(hotel)
-  )
+  const { restaurants } = useContext(StoreContext);
+  const qLocation = params.get('location') || '';
+  const qRestoName = params.get('restoName') || '';
+  const restaurant = query.toLowerCase();
+  // const filteredRestaurants = restaurants.filter(
+  //   (h) => h.location.toLowerCase().includes(restaurant)
+  // )
+  const filteredRestaurants = useMemo(() => {
+    return (restaurants || []).filter((r)=>{
+      const name = normalize(r.restoName||'');
+      const location = normalize(r.location||'');
+
+      const nameMatches = qRestoName ? name.includes(normalize(qRestoName)):true;
+      const locMatches = qLocation ? location.includes(normalize(qLocation)):true;
+      return nameMatches && locMatches;
+    })
+  },[restaurants, qRestoName, qLocation]);
   useEffect(() => {
-    setShowButton(filteredHotels.length > 4);
-  }, [filteredHotels]);
+    setShowButton(filteredRestaurants.length > 4);
+  }, [filteredRestaurants]);
+  if(!Array.isArray(restaurants)) return <p>Loading...</p>
   return (
     <PartnerContainer>
+      <h3>Discover best restaurants in your area</h3>
 
-      <h3>Discover best hotels in your area</h3>
-
-      <div className="hotels">
+      <div className="restaurants">
         {showButton &&
           <button className="leftButton" onClick={() => scroll('left')}>&#8592;</button>
         }
-        <div className="hotelList" ref={scrollRef}>
+        <div className="restoList" ref={scrollRef}>
           {
-            filteredHotels.length > 0 ? (
-              filteredHotels.map((h, _id) => (
+            filteredRestaurants.length > 0 ? (
+              filteredRestaurants.map((r, _id) => (
                 <div key={_id}>
-                  <div className='hotelCard' key={_id}>
-                    <Link to='/dishes' state={{ hotelName: h.hotelName }} style={{ textDecoration: 'none' }}>
-                      <Restaurant key={_id} name={h.hotelName} imageUrl={h.imageUrl} description={h.description} review={h.review} location={h.location} />
+                  <div className='restoCard' key={_id}>
+                    <Link to='/dishes' state={{ restoName: r.restoName }} style={{ textDecoration: 'none' }}>
+                      <Restaurant key={_id} name={r.restoName} imageUrl={r.imageUrl} description={r.description} review={r.review} location={r.location} />
                     </Link>
                   </div>
                 </div>
@@ -55,7 +70,7 @@ const Partners = () => {
             )
               : (
                 <>
-                  {showButton && <div>No hotels in this locality</div>}
+                  {showButton && <div>No restaurants in this locality</div>}
                 </>
               )
           }
@@ -78,13 +93,13 @@ flex-direction:column;
 justify-content:center;
 gap:10px;
 // align-items:center;
-.hotels{
+.restaurants{
 display:flex;
 align-items:center;
 gap:0.5rem;
 
 }
-.hotelList{
+.restoList{
   display:flex;
   gap:1rem;
   max-width:90vw;
@@ -93,11 +108,12 @@ gap:0.5rem;
   padding:0.5rem;
   background-color:rgb(255, 255, 255);
   }
-  .hotelCard{
+  .restoCard{
     display:flex;
     flex-direction:column;
     gap:0.5rem;
     min-width:320px;
+    box-shadow:0 4px 12px rgba(0, 0, 0, 0.1);
   }
   .leftButton,.rightButton{
     font-size:2rem;
@@ -117,7 +133,7 @@ gap:0.5rem;
     .leftButton,.rightButton{
       display: none;
     }
-    .hotelCard{
+    .restoCard{
       min-width: 260px;
     }
   }

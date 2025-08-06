@@ -1,17 +1,17 @@
-import axios from 'axios';
 import './orderTrack.css'
 import React, { useState } from 'react'
 import authService from '../../service/authService';
-const API_URL = import.meta.env.REACT_APP_API_URL;
 
 const OrderTrack = () => {
   const [orders, setOrders] = useState([]);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [button, setButton] = useState(true);
   const trackHandler = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError('');
+    setButton(false);
     try {
       const user = JSON.parse(localStorage.getItem('user'));
       if (!user || !user._id) {
@@ -19,29 +19,27 @@ const OrderTrack = () => {
         setLoading(false);
         return;
       }
-      const res = await authService.makeAuthenticatedRequest(`${API_URL}/api/orders/list`);
+      const res = await authService.makeAuthenticatedRequest(`http://localhost:5000/api/orders/list`);
       console.log('res');
       console.log(res);
       if (!res) {
         setError('Not authenticated');
         setLoading(false);
-        console.log('not res');
         return;
       }
       const data = await res.json();
-
       console.log('data');
       console.log(data);
 
-      // }
       if (data.success && Array.isArray(data.data)) {
         //filter orders for current user
         const myOrders = data.data.filter(order => {
+          console.log("Checking order:", order.orderId, "user =", order.user);
           if (typeof order.user === 'object' && order.user !== null) {
-            return order.user._id === user._id;
+            return order.user._id?.toString() === user._id?.toString();
           }
-          return order.user === user._id;
-        });
+          return order.user?.toString() === user._id?.toString();
+        }).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         setOrders(myOrders);
       }
       else {
@@ -58,17 +56,21 @@ const OrderTrack = () => {
   return (
     <div className='trackContainer'>
       <h2>Track Orders</h2>
-      <button onClick={trackHandler} disabled={loading} className='trackButton'>
-        {loading ? 'Loading...' : 'Show my orders'}
-      </button>
+      {button && (
+
+        <button onClick={trackHandler} disabled={loading} className='trackButton'>
+          {loading ? 'Loading...' : 'Show my orders'}
+        </button>
+      )}
       {error && <div /*style={{ color: 'red' }}*/ className='errorMessage'>{error}</div>}
-      {orders.length > 0 && (
+      {orders.length > 0 &&(
         <ul className="orderList">
           {orders.map((order) => (
             <li key={order._id} className="orderCard">
               <div className="orderHeader">
                 <p><strong>Order ID:</strong> {order._id}</p>
                 <p><strong>Status:</strong> {order.status}</p>
+                <p><strong>Ordered On:</strong> {new Date(order.createdAt).toLocaleString()}</p>
               </div>
               <div className="orderBody">
                 <p><strong>Name:</strong> {order.name}</p>

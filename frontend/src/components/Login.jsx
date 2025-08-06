@@ -5,7 +5,7 @@ import authService from '../service/authService'
 import { useAuth } from '../Context/authContext'
 import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
-const ADMIN_URL = import.meta.env.REACT_APP_ADMIN_URL;
+// const ADMIN_URL = import.meta.env.REACT_APP_ADMIN_URL;
 
 const Login = () => {
   const { login } = useAuth(); //using authContext to get login function
@@ -40,7 +40,7 @@ const Login = () => {
         if (result.user && result.user.role === 'admin') {
 
           console.log("heelo ")
-          window.location.href = ADMIN_URL;
+          window.location.href = "http://localhost:5174/";
         }
         else {
           navigate('/')

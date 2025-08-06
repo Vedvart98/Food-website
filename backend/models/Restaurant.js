@@ -1,12 +1,11 @@
 const mongoose = require('mongoose');
-const hotelSchema = new mongoose.Schema({
-    hotelName: { type: String, required: true },
+const restoSchema = new mongoose.Schema({
+    restoName: { type: String, required: true },
     imageUrl: { type: String, required: true },
     description: { type: String, required: true },
     review: { type: Number, required: true },
     location: { type: String, required: true },
 },
-    { collection: "hotels" } // collection name
-
+    { collection: "restaurants" } // collection name
 );
-module.exports = mongoose.model('Hotel', hotelSchema); 
+module.exports = mongoose.model('Restaurant', restoSchema); 

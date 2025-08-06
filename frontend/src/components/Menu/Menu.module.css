@@ -89,7 +89,7 @@ button.btn:hover {
 /* small screens */
 @media (max-width: 768px) {
   .MenuContainer {
-    height: 75vh;
+    height: 60vh;
   }
 
   .menu h2 {

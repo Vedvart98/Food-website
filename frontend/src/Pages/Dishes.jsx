@@ -1,51 +1,49 @@
 // \/
 import React, { useContext } from 'react'
-import { useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 import { StoreContext } from '../Context/StoreContext'
-const API_URL = import.meta.env.REACT_APP_API_URL;
+// const API_URL = import.meta.env.REACT_APP_API_URL;
 
 const Dishes = () => {
   const location = useLocation();
-  const selectedHotelName = location.state?.hotelName;  //read passed hotel name
-  const { dishes, addToCart, hotels } = useContext(StoreContext)
+  const selectedRestaurantName = location.state?.restoName;  //read passed restaurant name
+  const { dishes, addToCart, restaurants } = useContext(StoreContext)
 
   const filteredDishes = dishes.filter(
-    (dish) => dish.hotelName === selectedHotelName
+    (dish) => dish.restoName === selectedRestaurantName
   );
-  const filteredHotel = hotels.filter(
-    (hotel) => hotel.hotelName === selectedHotelName
+  const filteredRestaurant = restaurants.filter(
+    (restaurant) => restaurant.restoName === selectedRestaurantName
   );
-  // const hotel = hotels.find((h)=> h.hotelName === selectedHotelName);
   return (
     <DishContainer>
       <>
         <div className='dish-container'>
-          <h2>Dishes from {selectedHotelName}</h2>
-          <div className="header">
-            <p>Dish Image</p>
-            <p>Dish Name</p>
-            <p>Price</p>
-            <p>Add</p>
+          <h2>Dishes from {selectedRestaurantName}</h2>
+          <div className="dishes">
+            {filteredDishes.length === 0 ? (
+              <p>No Dishes for this restaurant name</p>
+            )
+              :
+              (
+                filteredDishes.map((dish) => {
+                  return (
+                    <Link to={`/dish/${dish._id}`} key={dish._id} style={{textDecoration:'none'}}>
+                    <div className='dishes-item' key={dish._id}>
+                      <img src={`http://localhost:5000${dish.imageUrl}`} alt={dish.name} />
+                      <p>{dish.name}</p>
+                      <p>${dish.price}</p>
+                      <div>
+                        <button className='btn' onClick={() => addToCart(dish._id)}>Add</button>
+                      </div>
+                    </div>
+                    </Link>
+                  )
+                }))
+            }
           </div>
-          <hr />
 
-          {filteredDishes.length === 0 ? (
-            <p>No Dishes for this hotel name</p>
-          )
-            :
-            (
-              filteredDishes.map((dish) => {
-                return (
-                  <div className='dishes-item' key={dish._id}>
-                    <img src={`${API_URL}${dish.imageUrl}`} alt={dish.name} />
-                    <p>{dish.name}</p>
-                    <p>${dish.price}</p>
-                    <button className='btn' onClick={() => addToCart(dish._id)}>Add</button>
-                  </div>
-                )
-              }))
-          }
         </div>
       </>
     </DishContainer>
@@ -54,21 +52,32 @@ const Dishes = () => {
 
 export default Dishes
 const DishContainer = styled.div`
-// margin-top:100px;
 .header{
-display:flex;
-justify-content:space-around;
+// display:flex;
+// justify-content:space-between;
 }
-.dishes-item{
-display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-align-items:center;
-gap:10px;
-text-align:center;
+.dishes{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+  gap:1.5rem;
+  }
+  .dishes-item{
+  background:#fff;
+  color:black;
+  border:1px solid #ddd;
+  border-radius:10px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    box-shadow:0 4px 12px rgba(0,0,0,0.06);
+  height:400px;
+  width:300px;
+  gap:1rem;
   }
 .dishes-item img{
-  height:150px;
-  width:150px;
+  height:50%;
+  width:90%;
   object-fit:cover;
 }
 .dish-container{

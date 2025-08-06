@@ -2,14 +2,14 @@ import { createContext, useState, useEffect, useMemo } from "react";
 import axios from "axios";
 export const StoreContext = createContext(null)
 import { toast } from "react-toastify";
-const API_URL = import.meta.env.REACT_APP_API_URL;
+// const API_URL = import.meta.env.REACT_APP_API_URL;
 
 const StoreContextProvider = (props) => {
   const [dishes, setDishes] = useState([]);
-  const [hotels, setHotels] = useState([]);
+  const [restaurants, setRestaurants] = useState([]);
   const [cartItem, setCartItem] = useState({});
-  const searchHotels = (locationQuery = "", nameQuery = "") =>
-    hotels.filter((h) =>
+  const searchRestaurants = (locationQuery = "", nameQuery = "") =>
+    restaurants.filter((h) =>
       (!locationQuery || h.city.toLowerCase().includes(locationQuery.toLowerCase())) &&
       (!nameQuery ||
         h.name.toLowerCase().includes(nameQuery.toLowerCase()))
@@ -17,24 +17,24 @@ const StoreContextProvider = (props) => {
   useEffect(() => {
     const fetchDishes = async () => {
       try {
-        const res = await axios.get(`${API_URL}/api/dishes`);
+        const res = await axios.get(`http://localhost:5000/api/dishes`);
         setDishes(res.data);                                            // useEffect
       }
       catch (err) {
         console.error("Failed to load dishes:", err.message);
       }
     };
-    const fetchHotels = async () => {
+    const fetchRestaurants = async () => {
       try {
-        const res = await axios.get(`${API_URL}/api/hotels`);
-        setHotels(res.data);
+        const res = await axios.get(`http://localhost:5000/api/restaurants`);
+        setRestaurants(res.data);
       }
       catch (err) {
-        console.error('Failed to fetch hotels', err.message);
+        console.error('Failed to fetch restaurants', err.message);
       }
     };
     fetchDishes();
-    fetchHotels();
+    fetchRestaurants();
   }, []);
   const dishById = useMemo(() => {
     const map = new Map();
@@ -45,6 +45,7 @@ const StoreContextProvider = (props) => {
   }, [dishes]);
 
   const addToCart = (_id) => {
+    
     setCartItem((prev) => {
       if (!_id) return prev;    // guard against undefined 
       const updatedCart = { ...prev };
@@ -85,8 +86,8 @@ const StoreContextProvider = (props) => {
     removeCartItem,
     getTotalCartAmount,
     dishById,
-    hotels,
-    searchHotels
+    restaurants,
+    searchRestaurants
   }));
   return (
     <StoreContext.Provider value={contextValue}>

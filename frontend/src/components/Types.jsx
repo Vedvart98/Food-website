@@ -2,7 +2,7 @@
 import React, { useContext, useRef, useState } from 'react'
 import { Link } from 'react-router-dom';
 import styled from "styled-components";
-import DishCard from "./DishCard"
+import DishCard from '../Pages/DishCard';
 import { StoreContext } from '../Context/StoreContext';
 import { useEffect } from 'react';
 function Types() {
@@ -28,7 +28,6 @@ function Types() {
 
   return (
     <TypesContainer>
-
       <h3>Some of our bests</h3>
       <div className="bests">
         {button &&

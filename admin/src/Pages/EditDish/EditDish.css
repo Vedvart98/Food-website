@@ -1,14 +1,14 @@
-.add {
-    width: calc(100vw - 270px);
+.edit {
+    width: calc(100vw - 280px);
     height: calc(100vh-70px);
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* background: linear-gradient(135deg, #f5f7fa, #c3cfe2); */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.add form {
+.edit form {
     background: #fff;
     padding: 2rem 2.5rem;
     border-radius: 15px;
@@ -32,17 +32,17 @@
     }
 }
 
-.imageUpload {
+.updateImage {
     text-align: center;
 }
 
-.imageUpload p {
+.updateImage p {
     margin-bottom: 0.5rem;
     color: #333;
     font-weight: 500;
 }
 
-.imageUpload label {
+.updateImage label {
     display: inline-block;
     padding: 1rem;
     border: 2px dashed #aaa;
@@ -52,43 +52,43 @@
     transition: all 0.3s ease;
 }
 
-.imageUpload label:hover {
+.updateImage label:hover {
     background-color: #eef2f7;
     border-color: #6c63ff;
 }
 
-.imageUpload img {
+.updateImage img {
     display: block;
     margin: 0 auto;
     max-height: 100px;
     transition: transform 0.3s ease;
 }
 
-.imageUpload img:hover {
+.updateImage img:hover {
     transform: scale(1.1);
 }
 
-.add form .dish-details {
+.edit form .dish-details {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     width: 100%;
     gap: 2rem;
 }
 
-.dish-details div {
+.dish-details input{
     display: flex;
     flex-direction: column;
 }
 
-.add form div p {
+.edit form div p {
     margin-bottom: 0.4rem;
     font-size: 0.95rem;
     color: #555;
     font-weight: 600;
 }
 
-.add form input[type="text"],
-.add form input[type="number"] {
+.edit form input[type="text"],
+.edit form input[type="number"] {
     width: 100%;
     padding: 0.7rem;
     border: 1.5px solid #ccc;
@@ -98,12 +98,12 @@
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.add form input:focus {
+.edit form input:focus {
     border-color: #6c63ff;
     box-shadow: 0 0 8px rgba(108, 99, 255, 0.3);
 }
 
-.add form button {
+.edit form button {
     background-color: #6c63ff;
     color: #fff;
     padding: 0.8rem 1.2rem;
@@ -115,17 +115,17 @@
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.add form button:hover {
+.edit form button:hover {
     background-color: #5548d9;
     transform: scale(1.05);
 }
 
-.add form button:active {
+.edit form button:active {
     transform: scale(0.97);
 }
 
 @media (max-width: 480px) {
-    .add form {
+    .edit form {
         width: 90%;
         padding: 1.5rem;
     }

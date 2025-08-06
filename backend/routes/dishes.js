@@ -32,12 +32,12 @@ router.get('/', async (req, res) => {
 // POST a new dish with image upload
 router.post('/', upload.single('image'), async (req, res) => {
     try {
-        const { name, price, hotelName, review } = req.body;
+        const { name, price, restoName, review , description,ingredients  } = req.body;
         const imagePath = req.file ? `/uploads/${req.file.filename}` : '';
 
         // const newDish = new Dish(req.body);
         const newDish = new Dish({
-            name, price, hotelName, imageUrl: imagePath, review
+            name, price, restoName, imageUrl: imagePath, review,description,ingredients
         });
         await newDish.save();
         // return the newly created dish
@@ -48,7 +48,7 @@ router.post('/', upload.single('image'), async (req, res) => {
             success: true,
             message: 'Dish created successfully',
             dish: newDish
-        });
+        });  
     } catch (err) {
         res.status(400).json({ error: err.message });
     }
@@ -80,8 +80,8 @@ router.put('/:id', upload.single('image'), async (req, res) => {
     // const {id} = req.params; 
     try {
 
-        const { name, price, hotelName, review } = req.body;
-        const updateFields = { name, price, hotelName, review };
+        const { name, price, restoName, review } = req.body;
+        const updateFields = { name, price, restoName, review };
         if (req.file) {
             updateFields.imageUrl = `/uploads/${req.file.filename}`;
         }

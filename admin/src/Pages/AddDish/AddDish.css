@@ -1,0 +1,131 @@
+.add {
+    width: calc(100vw - 310px);
+    height: calc(100vh-70px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.add form {
+    background: #fff;
+    padding: 2rem 2.5rem;
+    border-radius: 15px;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    animation: slideIn 0.6s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.imageUpload {
+    text-align: center;
+}
+
+.imageUpload p {
+    margin-bottom: 0.5rem;
+    color: #333;
+    font-weight: 500;
+}
+
+.imageUpload label {
+    display: inline-block;
+    padding: 1rem;
+    border: 2px dashed #aaa;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.imageUpload label:hover {
+    background-color: #eef2f7;
+    border-color: #6c63ff;
+}
+
+.imageUpload img {
+    display: block;
+    margin: 0 auto;
+    max-height: 100px;
+    transition: transform 0.3s ease;
+}
+
+.imageUpload img:hover {
+    transform: scale(1.1);
+}
+
+.add form .dish-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    width: 100%;
+    gap: 2rem;
+}
+
+.dish-details div {
+    display: flex;
+    flex-direction: column;
+}
+
+.add form div p {
+    margin-bottom: 0.4rem;
+    font-size: 0.95rem;
+    color: #555;
+    font-weight: 600;
+}
+
+.add form input[type="text"],
+.add form input[type="number"] {
+    width: 100%;
+    padding: 0.7rem;
+    border: 1.5px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    font-size: 0.95rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.add form input:focus {
+    border-color: #6c63ff;
+    box-shadow: 0 0 8px rgba(108, 99, 255, 0.3);
+}
+
+.add form button {
+    background-color: #6c63ff;
+    color: #fff;
+    padding: 0.8rem 1.2rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.add form button:hover {
+    background-color: #5548d9;
+    transform: scale(1.05);
+}
+
+.add form button:active {
+    transform: scale(0.97);
+}
+
+@media (max-width: 480px) {
+    .add form {
+        width: 90%;
+        padding: 1.5rem;
+    }
+}

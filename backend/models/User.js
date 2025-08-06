@@ -29,11 +29,6 @@ const userSchema = new mongoose.Schema({
         required: [true, 'First name is required'],
         trim: true,
     },
-    // lastname:{
-    //     type:String,
-    //     required:[true,'Last name is required'],
-    //     trim:true,
-    // },
     role: {
         type: String,
         enum: ['user', 'admin'],

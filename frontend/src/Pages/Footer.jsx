@@ -128,7 +128,7 @@ const FooterContainer = styled.footer`
     .footer {
       grid-template-columns: 1fr;
       text-align: center;
-    }
+      }
 
     .about p {
       max-width: 100%;

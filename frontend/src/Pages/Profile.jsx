@@ -14,7 +14,7 @@ const Profile = () => {
     <ProfileContainer>
       <WelcomeText>Welcome, <span>{user.name}</span> <span><img src={assets.welcome} alt='' height={40} width={40} /></span> </WelcomeText>
       <ProfileCard>
-        <ProfileImage src={assets.food_icon} alt="User Icon" />
+        <ProfileImage src={assets.user} alt="User Icon" />
         <Details>
           <h3>{user.name}</h3>
           <p><strong>Email:</strong> {user.email}</p>

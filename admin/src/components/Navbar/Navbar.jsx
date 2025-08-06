@@ -4,9 +4,6 @@ import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import { assets } from '../../assets/assets'
-const ADMIN_URL = import.meta.env.REACT_APP_ADMIN_URL;
-const FRONTEND_URL = import.meta.env.REACT_APP_FRONEND_URL;
-const API_URL = import.meta.env.REACT_APP_API_URL;
 const Navbar = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
@@ -17,7 +14,7 @@ const Navbar = () => {
   }, []);
   const logout = async () => {
     try {
-      await fetch(`${API_URL}/api/auth/logout`, {
+      await fetch(`http://localhost:5000/api/auth/logout`, {
         method: 'POST',
         credentials: 'include',
       });
@@ -25,7 +22,7 @@ const Navbar = () => {
       localStorage.removeItem('user');
       setUser(null);
       setShowDropdown(false);
-      window.location.href = `${FRONTEND_URL}/login`;
+      window.location.href = `http://localhost:5173/login`;
     } catch (error) {
       console.log('Logout error:', error);
     } finally {
@@ -45,9 +42,7 @@ const Navbar = () => {
     return localStorage.getItem('token');
   }
   const isAuthenticated = () => {
-    // const token = this.getToken();
     const token = getToken();
-    // const user = this.getCurrentUser();
     const user = getCurrentUser();
     return !!(token && user);
   }

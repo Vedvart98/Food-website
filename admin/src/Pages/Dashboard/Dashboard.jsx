@@ -3,7 +3,7 @@ import React from 'react'
 import './Dashboard.css'
 import { useEffect } from 'react';
 import { useState } from 'react';
-const API_URL = import.meta.env.REACT_APP_API_URL;
+// const API_URL = import.meta.env.REACT_APP_API_URL;
 
 const Dashboard = () => {
     const [dishes, setDishes] = useState([]);
@@ -15,7 +15,7 @@ const Dashboard = () => {
     useEffect(() => {
         const fetchDishes = async () => {
             try {
-                const dishResponse = await axios.get(`${API_URL}/api/dishes`);
+                const dishResponse = await axios.get(`http://localhost:5000/api/dishes`);
                 setDishes(Array.isArray(dishResponse.data) ? dishResponse.data : []);
             } catch (err) {
                 console.error('Failed to fetch dishes:', err);
@@ -24,7 +24,7 @@ const Dashboard = () => {
         };
         const fetchOrders = async () => {
             try {
-                const orderResponse = await axios.get(`${API_URL}/api/orders/list`);
+                const orderResponse = await axios.get(`http://localhost:5000/api/orders/list`);
                 setOrders(Array.isArray(orderResponse.data.data) ? orderResponse.data.data : []);
             } catch (err) {
                 console.error('Failed to fetch orders:', err);
@@ -33,7 +33,7 @@ const Dashboard = () => {
         };
         const fetchUsers = async () => {
             try {
-                const userResponse = await axios.get(`${API_URL}/api/users`);
+                const userResponse = await axios.get(`http://localhost:5000/api/users`);
                 setUsers(Array.isArray(userResponse.data.data) ? userResponse.data.data : []);
             } catch (err) {
                 console.error('Failed to fetch users:', err);

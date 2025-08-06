@@ -4,15 +4,15 @@ import './App.css'
 import { ToastContainer } from 'react-toastify'
 import Sidebar from './components/Sidebar/Sidebar'
 import { Route, Routes } from 'react-router-dom'
-import Add from './Pages/Add/add'
 import 'react-toastify/dist/ReactToastify.css'
-import Order from './Pages/order/Order'
 
 import Dashboard from './Pages/Dashboard/Dashboard'
-import Edit from './Pages/Edit/Edit'
-import List from './Pages/list/List'
 import RestoList from './Pages/RestaurantList/RestaurantList'
 import AddRestaurant from './Pages/AddRestaurant/AddRestaurant'
+import AddDish from './Pages/AddDish/addDish'
+import OrderList from './Pages/OrderList/OrderList'
+import EditDish from './Pages/EditDish/EditDish'
+import DishList from './Pages/DishList/DishList'
 const App = () => {
   return (
     <>
@@ -26,11 +26,11 @@ const App = () => {
 
             <Routes>
               <Route path='/' element={<Dashboard />} />
-              <Route path='/add' element={<Add />} />
+              <Route path='/add' element={<AddDish />} />
               <Route path='/addRestaurant' element={<AddRestaurant />} />
-              <Route path='/order' element={<Order />} />
-              <Route path='/listDishes' element={<List />} />
-              <Route path='/edit/:id' element={<Edit />} />
+              <Route path='/order' element={<OrderList />} />
+              <Route path='/listDishes' element={<DishList />} />
+              <Route path='/edit/:id' element={<EditDish />} />
               <Route path='/listRestaurants' element={<RestoList />} />
             </Routes>
           </div>
