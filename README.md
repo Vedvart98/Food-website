@@ -48,8 +48,6 @@ npm run dev
 cd ../frontend
 npm run dev
 
-Also you need to change API_URL,FRONTEND_URL in some files if not working
-
 ✨ Future Improvements
 Add payment gateway integration (Stripe/PayPal).
 
@@ -58,4 +56,5 @@ Add role-based admin dashboard.
 Enable live order tracking with Socket.io.
 
 Responsive mobile-first design.
+
 
