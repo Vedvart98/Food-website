@@ -39,7 +39,6 @@ const DishList = () => {
               <div className='dish-details'>
                 <p>{dish.name} - ${dish.price}/unit</p>
                 <p>{dish.restoName}</p>
-                {/* <p>{dish.description} </p> */}
               </div>
               <div className='buttons'>
 

@@ -35,7 +35,6 @@ router.post('/', upload.single('image'), async (req, res) => {
         const { name, price, restoName, review , description,ingredients  } = req.body;
         const imagePath = req.file ? `/uploads/${req.file.filename}` : '';
 
-        // const newDish = new Dish(req.body);
         const newDish = new Dish({
             name, price, restoName, imageUrl: imagePath, review,description,ingredients
         });

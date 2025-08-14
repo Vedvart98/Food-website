@@ -2,7 +2,6 @@ import { createContext, useState, useEffect, useMemo } from "react";
 import axios from "axios";
 export const StoreContext = createContext(null)
 import { toast } from "react-toastify";
-// const API_URL = import.meta.env.REACT_APP_API_URL;
 
 const StoreContextProvider = (props) => {
   const [dishes, setDishes] = useState([]);

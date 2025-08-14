@@ -4,7 +4,6 @@ import { StoreContext } from '../Context/StoreContext'
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../Context/authContext';
-// const API_URL = import.meta.env.REACT_APP_API_URL;
 
 const Cart = () => {
   const { cartItem, dishes, removeCartItem, getTotalCartAmount, dishById } = useContext(StoreContext);

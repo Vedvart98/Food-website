@@ -1,7 +1,6 @@
 .resto-container {
     height: 100vh;
     width: calc(100vw - 304px);
-    /* margin: 2rem auto; */
     padding: 1.5rem;
     border-radius: 8px;
     text-align: center;
@@ -35,7 +34,6 @@
 }
 
 .lists .resto-card .icon {
-    /* width: 400px; */
     height: 300px;
     object-fit: cover;
     border-radius: 10px;
@@ -43,7 +41,6 @@
 }
 
 .resto-card .restoDetails {
-    /* width: 400px; */
     display: flex;
     flex-direction: column;
     justify-content: center;

@@ -3,8 +3,6 @@ import React from 'react'
 import './Dashboard.css'
 import { useEffect } from 'react';
 import { useState } from 'react';
-// const API_URL = import.meta.env.REACT_APP_API_URL;
-
 const Dashboard = () => {
     const [dishes, setDishes] = useState([]);
     const [orders, setOrders] = useState([]);

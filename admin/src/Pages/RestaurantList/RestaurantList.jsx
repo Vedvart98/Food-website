@@ -3,6 +3,7 @@ import React from 'react'
 import './RestaurantList.css'
 import { useEffect } from 'react';
 import { useState } from 'react'
+import { Link } from 'react-router-dom';
 const RestoList = () => {
     const [restaurants, setRestaurants] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -32,21 +33,19 @@ const RestoList = () => {
                 {Array.isArray(restaurants) && restaurants.length > 0 ? (
                     restaurants.map(restaurant => (
                         <li key={restaurant._id} className='resto-card'>
-                            
-                                <img src={`http://localhost:5000${restaurant.imageUrl}`} alt="Restaurant" className='icon' />
-                            
+                            <img src={`http://localhost:5000${restaurant.imageUrl}`} alt="Restaurant" className='icon' />
                             <div className="restoDetails">
-                                <p><strong>{restaurant.restaurantName}</strong></p>
+                                <p><strong>{restaurant.restoName}</strong></p>
                                 <p>Description: {restaurant.description}</p>
                                 <p>Location: {restaurant.location}</p>
                             </div>
                             <div className="buttons">
-                                
-                                <button className="btn" onClick={() => handleDelete(restaurant._id)}>Delete</button>
-                                
-                                <button className='btn'>Edit</button>
-
-                              
+                                <div>
+                                    <button className="btn" onClick={() => handleDelete(restaurant._id)}>Delete</button>
+                                </div>
+                                <div>
+                                    <Link to={`/editRestaurant/${restaurant._id}`}><button className='btn'>Edit</button></Link>
+                                </div>
                             </div>
                         </li>
                     ))

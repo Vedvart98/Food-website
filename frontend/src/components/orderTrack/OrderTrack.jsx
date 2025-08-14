@@ -62,7 +62,7 @@ const OrderTrack = () => {
           {loading ? 'Loading...' : 'Show my orders'}
         </button>
       )}
-      {error && <div /*style={{ color: 'red' }}*/ className='errorMessage'>{error}</div>}
+      {error && <div className='errorMessage'>{error}</div>}
       {orders.length > 0 &&(
         <ul className="orderList">
           {orders.map((order) => (

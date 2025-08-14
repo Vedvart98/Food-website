@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate, data } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './EditDish.css'
 import { toast } from 'react-toastify';
 import { assets } from '../../assets/assets'
-// const API_URL = import.meta.env.REACT_APP_API_URL;
 
 const EditDish = () => {
   const { id } = useParams();
@@ -16,8 +15,8 @@ const EditDish = () => {
     price: '',
     restoName: '',
     review: '',
-    description:'',
-    ingredients:''
+    description: '',
+    ingredients: ''
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -33,8 +32,8 @@ const EditDish = () => {
           price: dish.price || '',
           restoName: dish.restoName || '',
           review: dish.review || '',
-          description: dish.description ||'',
-          ingredients: dish.ingredients ||''
+          description: dish.description || '',
+          ingredients: dish.ingredients || ''
         });
         setLoading(false);
       })
@@ -51,7 +50,7 @@ const EditDish = () => {
       ...prev,
       [name]: value
     }))
-    console.log("id" + id);
+    console.log("id " + id);
   };
 
   const handleSubmit = async (e) => {
@@ -64,8 +63,8 @@ const EditDish = () => {
       updatedFormData.append('price', formData.price);
       updatedFormData.append('restoName', formData.restoName);
       updatedFormData.append('review', formData.review);
-      updatedFormData.append('description',formData.description);
-      updatedFormData.append('ingredients',formData.ingredients);
+      updatedFormData.append('description', formData.description);
+      updatedFormData.append('ingredients', formData.ingredients);
 
       if (image) {
         updatedFormData.append('image', image);  // update/apend image only if image is selected
@@ -82,8 +81,8 @@ const EditDish = () => {
           price: '',
           restoName: '',
           review: '',
-          description:'',
-          ingredients:''
+          description: '',
+          ingredients: ''
         });
         setImage(null);
         setPreview(null);
@@ -104,7 +103,7 @@ const EditDish = () => {
 
   return (
     <div className='edit'>
-      <h2>Edit Dish/Restaurant</h2>
+      <h2>Edit Dish</h2>
       <form onSubmit={handleSubmit}>
         <div className="updateImage">
           <p>upload Image here</p>
@@ -118,14 +117,14 @@ const EditDish = () => {
           }} hidden />
         </div>
         <div className="dish-details">
-        <input type='text' onChange={handleChange} value={formData.name} name="name" placeholder="Name" required />
-        <input type="number" name="price" value={formData.price} onChange={handleChange} placeholder="Price" required />
-        <input type='text' name="restoName" value={formData.restoName} onChange={handleChange} placeholder="Restaurant Name" required />
-        <input type='number' name="review" value={formData.review} onChange={handleChange} placeholder='Review' required />
-        <input type="text" name="description" value={formData.description} onChange={handleChange} placeholder='Description' required />
-        <input type="text" name="ingredients" value={formData.ingredients} onChange={handleChange} placeholder='Ingredients' required />
-        <button type="submit">Update</button>
+          <input type='text' onChange={handleChange} value={formData.name} name="name" placeholder="Name" required />
+          <input type="number" name="price" value={formData.price} onChange={handleChange} placeholder="Price" required />
+          <input type='text' name="restoName" value={formData.restoName} onChange={handleChange} placeholder="Restaurant Name" required />
+          <input type='number' name="review" value={formData.review} onChange={handleChange} placeholder='Review' required />
+          <input type="text" name="description" value={formData.description} onChange={handleChange} placeholder='Description' required />
+          <input type="text" name="ingredients" value={formData.ingredients} onChange={handleChange} placeholder='Ingredients' required />
         </div>
+          <button type="submit">Update</button>
       </form>
     </div>
   );

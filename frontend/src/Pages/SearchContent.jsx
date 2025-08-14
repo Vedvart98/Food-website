@@ -2,7 +2,6 @@ import React, { useContext, useMemo, useState } from 'react';
 import { StoreContext } from '../Context/StoreContext';
 import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-// const API_URL = import.meta.env.REACT_APP_API_URL;
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -31,7 +30,6 @@ const SearchContent = () => {
             <div className="searchItem" key={_id}>
 
               <Link to={`/dish/${dish._id}`} style={{textDecoration:'none'}}>
-                {/* <div> */}
                 <img src={`http://localhost:5000${dish.imageUrl}`} alt={dish.name} />
                 <div className='details'>
                   <h3>{dish.name}</h3>
@@ -39,7 +37,6 @@ const SearchContent = () => {
                   <p>${dish.price}<br></br>{dish.restoName}</p>
                 </div>
               </Link>
-              {/* </div> */}
               <button className='btn' onClick={() => addToCart(dish._id)}>Add To Cart</button>
             </div>
           ))

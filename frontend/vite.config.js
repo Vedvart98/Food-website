@@ -15,21 +15,4 @@ export default defineConfig({
               },
             },
           },
-        })
-        
-//         import { defineConfig } from 'vite';
-//         import path from 'path';
-
-
-// export default defineConfig({
-//   server: {
-//     fs: {
-//       allow: [
-//         // 👇 Allow the frontend and admin directories
-//         path.resolve(__dirname),
-//         path.resolve(__dirname, '../frontend'), // if this config is in /admin
-//         path.resolve(__dirname, '../admin'),    // if this config is in /frontend
-//       ]
-//     }
-//   }
-// });
+        });

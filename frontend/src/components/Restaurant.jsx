@@ -1,6 +1,5 @@
 // \/
 import React from 'react';
-// require('dotenv').config();
 import styled from 'styled-components';
 const API_URL = import.meta.env.REACT_APP_API_URL;
 

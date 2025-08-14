@@ -1,6 +1,6 @@
 /* Dashboard container */
 .dashboard-container {
-    width: calc(100vw - 320px);
+    width: calc(100vw - 310px);
     height: calc(100vh - 70px);
     /* if header is 70px */
     padding: 2rem;

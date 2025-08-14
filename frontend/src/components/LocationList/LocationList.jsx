@@ -29,7 +29,6 @@ const LocationList = () => {
     fetchRestaurants();
   }, [location, restoName]);
   if (loading) return <p>Loading restaurants...</p>
-  // if(error) return <p style={{color:"red"}}>{error}</p>
 
   if (!Array.isArray(restaurants)) {
     console.log("Expected array,got: ", restaurants);

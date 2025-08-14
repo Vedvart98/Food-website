@@ -11,7 +11,6 @@ const Home = () => {
   return (
     <div>
       <Menu />
-      {/* <DishType /> */}
       <Types />
       {showPartners && <Partners />}
       <Footer />

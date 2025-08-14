@@ -1,8 +1,5 @@
 .list-container {
-    /* display: flex;
-    flex-direction: column; */
-    height: 100vh;
-    width: calc(100vw - 304px);
+    width: calc(100vw - 310px);
     padding: 1.5rem;
     border-radius: 8px;
     text-align: center;
@@ -14,10 +11,7 @@
     margin-top: 2rem;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-    /* display: flex; */
-    /* flex-direction: /column; */
     gap: 1.5rem;
-    /* justify-content: start; */
 }
 
 .lists .dish-card {
@@ -43,7 +37,6 @@
     height: 200px;
     object-fit: cover;
     border-radius: 10px;
-    /* justify-self: center; */
 }
 
 .dish-card .dish-details {
@@ -68,5 +61,4 @@
     display: flex;
     gap: 2rem;
     justify-content: center;
-    /* align-items: center; */
 }

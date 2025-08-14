@@ -4,6 +4,7 @@ const Restaurant = require('../models/Restaurant');  //mongoose model
 const multer = require('multer');
 const path = require('path')
 const Order = require('../models/Order'); // mongoose model for orders
+const { error } = require('console');
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'uploads/');
@@ -77,6 +78,28 @@ router.delete('/:id', async (req, res) => {
   } catch (err) {
     console.error('Failed to delete restaurant', err);
 
+  }
+});
+router.put('/:id',upload.single('image'),async (req,res)=>{
+  try{
+    const {restoName,description,review,location} = req.body;
+    const updateFields = {restoName,description,review,location};
+    if(req.file){
+      updateFields.imageUrl = `/uploads/${req.file.filename}`;
+    }
+    const updatedRestaurant = await Restaurant.findByIdAndUpdate(req.params.id,updateFields,{new:true});
+    if(!updatedRestaurant){
+      return res.status(404).json({
+        message:'Restaurant not found'
+      });
+    }
+    res.json({
+      success:true,
+      message:'Restaurant updated successfully',
+      restaurant:updatedRestaurant
+    });
+  }catch(err){
+    res.status(500).json({message:'server error',error:err.message});
   }
 })
 module.exports = router;

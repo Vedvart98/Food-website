@@ -6,7 +6,6 @@ const DishType = () => {
   const { dishes, addToCart } = useContext(StoreContext);
   const { dishId } = useParams();
   const dish = dishes.find((d) => d._id === dishId);
-  //  console.log(dish);
   if (!dish) {
     return <p>Dish not found</p>
   }

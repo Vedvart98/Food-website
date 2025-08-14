@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import './OrderList.css'
-// const API_URL = import.meta.env.REACT_APP_API_URL;
 
 const OrderList= () => {
   const [orders, setOrders] = useState([]);

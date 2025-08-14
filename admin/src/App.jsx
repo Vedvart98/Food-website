@@ -13,6 +13,7 @@ import AddDish from './Pages/AddDish/addDish'
 import OrderList from './Pages/OrderList/OrderList'
 import EditDish from './Pages/EditDish/EditDish'
 import DishList from './Pages/DishList/DishList'
+import EditResto from './Pages/EditRestaurant/restoEdit'
 const App = () => {
   return (
     <>
@@ -32,6 +33,7 @@ const App = () => {
               <Route path='/listDishes' element={<DishList />} />
               <Route path='/edit/:id' element={<EditDish />} />
               <Route path='/listRestaurants' element={<RestoList />} />
+              <Route path='/editRestaurant/:id' element={<EditResto />} />
             </Routes>
           </div>
         </div>

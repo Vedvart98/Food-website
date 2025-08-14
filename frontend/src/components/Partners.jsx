@@ -30,9 +30,7 @@ const Partners = () => {
   const qLocation = params.get('location') || '';
   const qRestoName = params.get('restoName') || '';
   const restaurant = query.toLowerCase();
-  // const filteredRestaurants = restaurants.filter(
-  //   (h) => h.location.toLowerCase().includes(restaurant)
-  // )
+
   const filteredRestaurants = useMemo(() => {
     return (restaurants || []).filter((r)=>{
       const name = normalize(r.restoName||'');

@@ -1,9 +1,7 @@
-// \/
 import React, { useContext } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 import { StoreContext } from '../Context/StoreContext'
-// const API_URL = import.meta.env.REACT_APP_API_URL;
 
 const Dishes = () => {
   const location = useLocation();
