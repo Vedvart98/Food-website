@@ -6,8 +6,12 @@ const OrderList= () => {
   const [orders, setOrders] = useState([]);
   const fetchAllOrders = async () => {
     try {
-
-      const res = await axios.get(`http://localhost:5000/api/orders/list`);
+      const token = localStorage.getItem('token');
+      const res = await axios.get(`http://localhost:5000/api/orders/list`,{
+        headers: {
+          'Authorization' : `Bearer ${token}`
+        }
+      });
       if (res.data.success) {
         setOrders(res.data.data);
         console.log(res.data.data);
@@ -21,10 +25,14 @@ const OrderList= () => {
   };
   const statusHandler = async (event, _id) => {
     try {
-
-      const res = await axios.put(`http://localhost:5000/api/orders/status`, {
+      const token = localStorage.getItem('token');
+      const res = await axios.put(`http://localhost:5000/api/orders/status` ,{
         _id,
         status: event.target.value,
+      },{
+        headers:{
+          'Authorization' : `Bearer ${token}`
+        }
       });
 
       if (res.data.success) {
@@ -40,6 +48,16 @@ const OrderList= () => {
   useEffect(() => {
     fetchAllOrders();
   }, []);
+  const handleDelete = async(id)=>{
+    const token = localStorage.getItem('token');
+    axios.delete(`http://localhost:5000/api/orders/${id}`,{
+      headers:{
+        'Authorization' : `Bearer ${token}`
+      }
+    }).then(()=>{
+      setOrders(orders.filter(order => order._id !== id));
+    })
+  };
   return (
 
     <div className='order'>
@@ -63,13 +81,16 @@ const OrderList= () => {
                 <p><strong>Name: </strong>{order.name}</p>
                 <p className='order-item-name'><strong>Delivery Location:</strong> {order.address}</p>
                 <p><strong>Total Items:</strong> {order.items.length}</p>
-                <p><strong>Total:</strong> $ {order.amount}</p>
+                <p><strong>Total:</strong> ₹ {order.amount}</p>
                 <select onChange={(event) => statusHandler(event, order._id)}
                   value={order.status}>
                   <option value="Food Processing">Food processing</option>
                   <option value="Out for delivery">Out for delivery</option>
                   <option value="Delivered">delivered</option>
                 </select>
+                <button className='order-delete-btn' onClick={()=> handleDelete(order._id)}>
+                  &#128465; Delete
+                </button>
               </div>
 
             </div>

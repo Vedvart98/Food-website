@@ -69,11 +69,11 @@ const Checkout = () => {
                   <button onClick={() => addToCart(id)}>+</button>
                 </QtyControls>
               </div>
-              <span>${(dish.price * qty).toFixed(2)}</span>
+              <span>₹{(dish.price * qty).toFixed(2)}</span>
             </CartRow>
           );
         })}
-        <Total>${getTotalCartAmount().toFixed(2)}</Total>
+        <Total>₹{getTotalCartAmount().toFixed(2)}</Total>
       </Summary>
 
       {/* --- RIGHT PANEL: FORM --- */}

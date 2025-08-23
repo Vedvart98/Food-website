@@ -23,7 +23,12 @@ const EditDish = () => {
 
   useEffect(() => {
     // Fetch the dish/restaurant by id and setFormData
-    axios.get(`/api/dishes/${id}`)
+    const token = localStorage.getItem('token');
+    axios.get(`/api/dishes/${id}`,{
+      headers:{
+        'Authorization' : `Bearer ${token}`
+      }
+    })
       .then(res => {
         const dish = res.data.dish || res.data;
         console.log(id);
@@ -69,13 +74,15 @@ const EditDish = () => {
       if (image) {
         updatedFormData.append('image', image);  // update/apend image only if image is selected
       }
+
+      const token = localStorage.getItem('token');
       const res = await axios.put(`http://localhost:5000/api/dishes/${id}`, updatedFormData, {
         headers: {
+          'Authorization' : `Bearer ${token}`,
           'Content-Type': 'multipart/form-data'
         }
       });
       if (res.data.success) {
-        console.log('hh');
         setFormData({
           name: '',
           price: '',
@@ -86,7 +93,7 @@ const EditDish = () => {
         });
         setImage(null);
         setPreview(null);
-        navigate('/list');
+        navigate('/listDishes');
         console.log('gfg');
         toast.success(res.data.message);
       } else {

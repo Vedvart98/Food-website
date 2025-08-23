@@ -11,37 +11,28 @@ const Dashboard = () => {
     const [error, setError] = useState(null);
     // Fetch data from the API
     useEffect(() => {
-        const fetchDishes = async () => {
+        const fetchAllData = async () => {  
             try {
-                const dishResponse = await axios.get(`http://localhost:5000/api/dishes`);
+                const token = localStorage.getItem('token');
+                const headers = {'Authorization' : `Bearer ${token}`};
+                const [dishResponse, orderResponse, userResponse] = await Promise.all([
+                    axios.get(`http://localhost:5000/api/dishes` , {headers}),
+                    axios.get(`http://localhost:5000/api/orders/list` , {headers}),
+                    axios.get(`http://localhost:5000/api/users` , {headers})
+                ]);
+                
                 setDishes(Array.isArray(dishResponse.data) ? dishResponse.data : []);
-            } catch (err) {
-                console.error('Failed to fetch dishes:', err);
-                setError('Failed to fetch dishes');
-            }
-        };
-        const fetchOrders = async () => {
-            try {
-                const orderResponse = await axios.get(`http://localhost:5000/api/orders/list`);
                 setOrders(Array.isArray(orderResponse.data.data) ? orderResponse.data.data : []);
-            } catch (err) {
-                console.error('Failed to fetch orders:', err);
-                setError('Failed to fetch orders');
-            };
-        };
-        const fetchUsers = async () => {
-            try {
-                const userResponse = await axios.get(`http://localhost:5000/api/users`);
                 setUsers(Array.isArray(userResponse.data.data) ? userResponse.data.data : []);
             } catch (err) {
-                console.error('Failed to fetch users:', err);
-                setError('Failed to fetch users');
+                console.error('Failed to fetch data:', err);
+                setError('Failed to fetch dashboard data');
+            } finally {
+                setLoading(false);
             }
         };
-        fetchDishes();
-        fetchOrders();
-        fetchUsers();
-        setLoading(false);
+        
+        fetchAllData();
     }
         , []);
     const getTotalOrders = () => {
@@ -76,7 +67,7 @@ const Dashboard = () => {
                 </div>
                 <div className="stat-item">
                     <h3>Total Revenue</h3>
-                    <p>${getTotalRevenue()}</p>
+                    <p>₹{getTotalRevenue()}</p>
                 </div>
                 <div className="stat-item">
                     <h3>Total Users</h3>

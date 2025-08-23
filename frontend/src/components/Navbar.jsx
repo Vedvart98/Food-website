@@ -52,9 +52,9 @@ const Navbar = ({ setShowLogin }) => {
           <input
             type="text"
             placeholder='Enter your location'
-            // value={locationText}
-            // onChange={(e) => setLocationText(e.target.value)}
-            // onKeyDown={searchLocation}
+            value={locationText}
+            onChange={(e) => setLocationText(e.target.value)}
+            onKeyDown={searchLocation}
             className="location-input"
           />
           <input

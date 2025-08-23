@@ -5,6 +5,9 @@ const multer = require('multer');
 const path = require('path')
 const Order = require('../models/Order'); // mongoose model for orders
 const { error } = require('console');
+const authController = require('../controllers/authController');
+const authMiddleWare = require('../middleware/auth');
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'uploads/');
@@ -14,7 +17,12 @@ const storage = multer.diskStorage({
     cb(null, uniqueName);
   }
 });
-const upload = multer({ storage });
+const upload = multer({ 
+    storage,
+    limits: {
+        fileSize: 8 * 1024 * 1024 // 8MB limit
+    }
+});
 router.get("/", async (req, res) => {
   try {
     const restaurants = await Restaurant.find(); //limit to avoid huge payload
@@ -24,7 +32,7 @@ router.get("/", async (req, res) => {
     res.status(500).send("Server error");
   }
 });
-router.get('/search',async(req,res)=>{
+router.get('/search', async(req,res)=>{
   const {location = "",restoName = ""} = req.query;
   const query ={};
   if(restoName.trim()){
@@ -57,7 +65,7 @@ router.post('/', upload.single('image'), async (req, res) => {
     res.status(400).json({ error: err.message });
   }
 });
-router.delete('/:id', async (req, res) => {
+router.delete('/:id',authMiddleWare.protect , async (req, res) => {
   try {
     const { id } = req.params;
     const restaurant = await Restaurant.findByIdAndDelete(id);
@@ -66,21 +74,24 @@ router.delete('/:id', async (req, res) => {
         success: false,
         message: 'Restaurant not found',
       })
-    } else {
-      await Order.deleteMany({ 'items.id': id });
-      res.json({
-        success: true,
-        message: 'Restaurant deleted successfully',
-        restaurant
-      })
     }
+    
+    await Order.deleteMany({ 'items.id': id });
+    return res.json({
+      success: true,
+      message: 'Restaurant deleted successfully', 
+      restaurant
+    });
 
   } catch (err) {
     console.error('Failed to delete restaurant', err);
-
+    return res.status(500).json({
+      success: false,
+      message: 'Internal server error'
+    }); 
   }
 });
-router.put('/:id',upload.single('image'),async (req,res)=>{
+router.put('/:id',authMiddleWare.protect, upload.single('image'),async (req,res)=>{
   try{
     const {restoName,description,review,location} = req.body;
     const updateFields = {restoName,description,review,location};
@@ -100,6 +111,17 @@ router.put('/:id',upload.single('image'),async (req,res)=>{
     });
   }catch(err){
     res.status(500).json({message:'server error',error:err.message});
+  }
+});
+router.get('/:id' ,async (req,res)=>{
+  try{
+    const restaurant = await Restaurant.findById(req.params.id);
+    if(!restaurant){
+      return res.status(404).json({success:false,message:'Restaturant not found'});
+    }
+    res.json(restaurant);
+  }catch(err){
+    res.status(500).json({success:false, message:'Server error',error:err.message});
   }
 })
 module.exports = router;

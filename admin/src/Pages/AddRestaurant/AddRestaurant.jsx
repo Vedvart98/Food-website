@@ -76,7 +76,7 @@ const AddRestaurant = () => {
                         const file = e.target.files[0];
                         setImage(file);
                         setPreview(URL.createObjectURL(file));
-                    }} hidden />
+                    }} hidden required/>
                 </div>
                 <div className='resto-details'>
 

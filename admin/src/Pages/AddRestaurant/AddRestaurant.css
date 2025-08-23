@@ -122,7 +122,12 @@
 .add-resto form button:active {
     transform: scale(0.97);
 }
-
+.resto-details label{
+    margin-bottom: 0.4rem;
+    font-size: 0.95rem;
+    color: #555;
+    font-weight: 600;
+}
 @media (max-width: 480px) {
     .add-resto form {
         width: 90%;

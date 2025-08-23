@@ -4,6 +4,7 @@ const Dish = require('../models/Dish');   // mongoose model
 const multer = require('multer');
 const path = require('path');
 const Order = require('../models/Order'); // mongoose model for orders
+const authMiddleWare = require('../middleware/auth');
 // Multer config
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -15,11 +16,16 @@ const storage = multer.diskStorage({
         cb(null, uniqueName);
     }
 });
-const upload = multer({ storage });
+const upload = multer({ 
+    storage,
+    limits: {
+        fileSize: 8 * 1024 * 1024 // 8MB limit
+    }
+});
 
 // GET all dishes
 // get /api/dishes
-router.get('/', async (req, res) => {
+router.get('/',async (req, res) => {
     try {
         const dishes = await Dish.find();   // fetch all dishes
         res.json(dishes);
@@ -52,7 +58,7 @@ router.post('/', upload.single('image'), async (req, res) => {
         res.status(400).json({ error: err.message });
     }
 });
-router.delete('/:id', async (req, res) => {
+router.delete('/:id',authMiddleWare.protect , async (req, res) => {
     try {
         const { id } = req.params;
         const dish = await Dish.findByIdAndDelete(id);
@@ -75,8 +81,7 @@ router.delete('/:id', async (req, res) => {
         console.error('Failed to delete dish:', err.message);
     }
 });
-router.put('/:id', upload.single('image'), async (req, res) => {
-    // const {id} = req.params; 
+router.put('/:id', authMiddleWare.protect, upload.single('image'), async (req, res) => {
     try {
 
         const { name, price, restoName, review } = req.body;
@@ -99,4 +104,16 @@ router.put('/:id', upload.single('image'), async (req, res) => {
         res.status(500).json({ message: 'server error', error: err.message });
     }
 });
+router.get('/:id',async(req,res)=>{
+    try {
+        const dish = await Dish.findById(req.params.id);
+        if(!dish){
+            return res.status(404).json({success:false,message:'Dish not found'});
+        }
+        res.json(dish);
+    } catch (err) {
+        res.status(500).json({success:false,message:'server error',error:err.message});
+        
+    }
+})
 module.exports = router;

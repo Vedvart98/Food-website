@@ -21,7 +21,7 @@ const Cart = () => {
     <CartContainer className='cart'>
       <div className='cartTotal'>
         <h2>Total Items: {getTotalItems()}</h2>
-        <p>Total Amount: ${getTotalCartAmount()}</p>
+        <p>Total Amount: ₹{getTotalCartAmount()}</p>
         {getTotalItems() > 0 ? (
           isAuthenticated ? (
             <Link to='/checkout'>
@@ -56,9 +56,9 @@ const Cart = () => {
               <img src={`http://localhost:5000${dish.imageUrl}`} alt={dish.name} className='photo' />
             <div className='dish-details'>
               <p><h3>{dish.name}</h3></p>
-              <p><strong>Price per unit:</strong> $ {dish.price}</p>
+              <p><strong>Price per unit:</strong> ₹ {dish.price}</p>
               <p><strong>Quantity:</strong> {quantity}</p>
-              <p><strong>Total:</strong> $ {dish.price * quantity}</p>
+              <p><strong>Total:</strong> ₹ {dish.price * quantity}</p>
             </div>
               <img onClick={() => removeCartItem(_id)} src="https://cdn-icons-png.freepik.com/256/484/484611.png?ga=GA1.1.1249373621.1745418540&semt=ais_hybrid" alt="" />
             </div>

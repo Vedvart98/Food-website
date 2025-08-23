@@ -57,11 +57,12 @@ exports.protect = async (req, res, next) => {
         message: 'Your token has expired! Please log in again.'
       });
     }
+    console.error('AUTH MIDDLEWARE ERROR:', error);
+    return res.status(500).json({
+      status: 'error',
+      message: 'Internal server error'
+    });
   }
-  return res.status(500).json({
-    status: 'error',
-    message: 'Internal server error'
-  });
 }
 
 // Restrict to certain roles

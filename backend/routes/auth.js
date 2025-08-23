@@ -9,7 +9,7 @@ router.post('/signup', authController.signup);
 router.post('/login', authController.login);
 router.post('/logout', authController.logout);
 
-// protected routes
+// protected routes 
 router.get('/me', authMiddleWare.protect, authController.getMe);
 
 // admin only route

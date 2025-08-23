@@ -33,7 +33,7 @@ function App() {
           <Route path='/results' element={<LocationList />} />
           <Route path='/cart' element={<Cart />} />
           <Route path='/dishes' element={<Dishes />} />
-          <Route path='/search' element={<SearchContent />} /> //for search feature
+          <Route path='/search' element={<SearchContent />} /> 
           <Route path='/checkout' element={<Checkout />} />
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<Signup />} />

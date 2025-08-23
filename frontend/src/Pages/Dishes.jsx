@@ -31,7 +31,7 @@ const Dishes = () => {
                     <div className='dishes-item' key={dish._id}>
                       <img src={`http://localhost:5000${dish.imageUrl}`} alt={dish.name} />
                       <p>{dish.name}</p>
-                      <p>${dish.price}</p>
+                      <p>₹{dish.price}</p>
                       <div>
                         <button className='btn' onClick={() => addToCart(dish._id)}>Add</button>
                       </div>

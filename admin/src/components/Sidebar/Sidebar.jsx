@@ -12,7 +12,7 @@ const Sidebar = () => {
           <Link to='/add'>
             <li>Add Dish</li>
           </Link>
-          <Link to='/order'>
+          <Link to='/orders'>
             <li>Order status</li>
           </Link>
           <Link to='/listDishes'>

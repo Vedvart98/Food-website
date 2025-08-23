@@ -9,7 +9,12 @@ const RestoList = () => {
     const [loading, setLoading] = useState(true);
     const fetchRestaurants = async () => {
         try {
-            const res = await axios.get(`http://localhost:5000/api/restaurants`);
+            const token = localStorage.getItem('token');
+            const res = await axios.get(`http://localhost:5000/api/restaurants`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
             setRestaurants(res.data);
             console.log(res.data);
         } catch (error) {
@@ -18,12 +23,27 @@ const RestoList = () => {
     }
     useEffect(() => {
         fetchRestaurants();
-        setLoading(false);
+        setLoading(false); 
     }, []);
     const handleDelete = async (id) => {
-        axios.delete(`http://localhost:5000/api/restaurants/${id}`).then(() => {
-            setRestaurants(restaurants.filter(restaurant => restaurant._id !== id));
-        });
+        try {
+            const token = localStorage.getItem('token');
+            const response = await axios.delete(`http://localhost:5000/api/restaurants/${id}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            if (response.data.success) {
+                setRestaurants(restaurants.filter(restaurant => restaurant._id !== id));
+                console.log('Restaurant deleted successfully');
+            }
+        } catch (error) {
+            console.error('Delete failed:', error.response?.data || error.message);
+            if (error.response?.status === 401) {
+                alert('Session expired. Please login again.');
+                window.location.href = 'http://localhost:5173/login';
+            }
+        }
     }
     if (loading) return <p>Loading restaurants...</p>
     return (

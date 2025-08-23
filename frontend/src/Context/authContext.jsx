@@ -38,7 +38,8 @@ export const AuthProvider = ({ children }) => {
                 setIsAuthenticated(true);
                 return {
                     success: true,
-                    user: result.user
+                    user: result.user,
+                    token: authService.getToken()
                 };
             }
             else {

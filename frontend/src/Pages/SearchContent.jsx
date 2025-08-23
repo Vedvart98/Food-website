@@ -34,7 +34,7 @@ const SearchContent = () => {
                 <div className='details'>
                   <h3>{dish.name}</h3>
                   <h5>{dish.restoName}</h5>
-                  <p>${dish.price}<br></br>{dish.restoName}</p>
+                  <p>₹{dish.price}<br></br>{dish.restoName}</p>
                 </div>
               </Link>
               <button className='btn' onClick={() => addToCart(dish._id)}>Add To Cart</button>

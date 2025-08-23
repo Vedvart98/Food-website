@@ -7,7 +7,7 @@ const DishCard = ({ name, price, imageUrl }) => {
         <img src={`http://localhost:5000${imageUrl}`} alt={name} className="photo" />
         <div className="naam">
           <h3 className="name">{name}</h3>
-          <p>Price: ${price}</p>
+          <p>Price: ₹{price}</p>
         </div>
       </div>
     </DishCardContainer>
@@ -23,7 +23,6 @@ padding:10px 10px 10px 10px;
   width: clamp(160px, 45vw, 220px);
   justify-content:space-around;
   align-items:center;
-  // padding: 0.75rem;
   gap: 0.5rem;
   border-radius: 12px;
   color:black;

@@ -10,6 +10,7 @@ const authRoutes = require('./routes/auth');  //
 const orderRoutes = require('./routes/orders'); // Import order routes
 const userRoutes = require('./routes/users');
 const cookieParser = require('cookie-parser');
+// amazonq-ignore-next-line
 const connectDB = require('./config/database');
 connectDB();
 
@@ -23,7 +24,6 @@ if (!fs.existsSync(uploadsDir)) {
 
 // middleware
 app.use(cors({
-    //
     origin: [process.env.CLIENT_URL || 'http://localhost:5173', 'http://localhost:5174'], // allow requests from these origins
     credentials: true
 }));
@@ -58,7 +58,7 @@ app.use((err, req, res, next) => {
     });
 
 });
-// server
+// server 
 const PORT = process.env.PORT || 5000;
 mongoose.connect(process.env.MONGO_URI,/*{useNewUrlParser:true, useUnifiedTopology:true}*/)
     .then(() => console.log("MONGO DB connected"))

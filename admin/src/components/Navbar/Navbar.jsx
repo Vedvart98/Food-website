@@ -14,9 +14,13 @@ const Navbar = () => {
   }, []);
   const logout = async () => {
     try {
+      const token = getToken();
       await fetch(`http://localhost:5000/api/auth/logout`, {
         method: 'POST',
-        credentials: 'include',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
       });
       localStorage.removeItem('token');
       localStorage.removeItem('user');

@@ -29,7 +29,7 @@ const Login = () => {
       console.log("The user is", result);
       if (result.success) {
         if (result.user && result.user.role === 'admin') {
-          window.location.href = "http://localhost:5174/";
+          window.location.href = `http://localhost:5174/?token=${result.token}`;
         }
         else {
           navigate('/')

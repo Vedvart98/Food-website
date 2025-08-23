@@ -9,9 +9,13 @@ const DishList = () => {
 
   const fetchAllDishes = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/dishes`);
+      const token = localStorage.getItem('token');
+      const res = await axios.get(`http://localhost:5000/api/dishes`,{
+        headers:{
+          'Authorization': `Bearer ${token}`
+        }
+      });
       setDishes(res.data);
-      console.log(res.data);
     } catch (err) {
       console.error('Something went wrong while fetching dishes', err);
     }
@@ -21,10 +25,25 @@ const DishList = () => {
     setLoading(false);
   }, []);
   const handleDelete = async (id) => {
-    axios.delete(`http://localhost:5000/api/dishes/${id}`).then(() => {
-      setDishes(dishes.filter(dish => dish._id !== id));
+    try{
+    const token = localStorage.getItem('token');
+    const response = axios.delete(`http://localhost:5000/api/dishes/${id}`,{
+      headers:{
+        'Authorization': `Bearer ${token}`
+      }
     });
-  };
+    if(response.data.success){
+      setDishes(dishes.filter(dish => dish._id !== id));
+      console.log('Dish deleted successfully');
+    };
+  }catch(error){
+    console.log('Delete failed:',error.response?.data || error.message);
+    if(error.response?.status === 401){
+      alert('Session expired . Please login again.');
+      window.location.href = 'http://localhost:5173/login';
+    }
+  }
+};
   if (loading) return <p>Loading Dishes...</p>
   return (
     <div className='list-container'>
@@ -37,7 +56,7 @@ const DishList = () => {
                 <img src={`http://localhost:5000${dish.imageUrl}`} alt="dish" className='icon' />
               </div>
               <div className='dish-details'>
-                <p>{dish.name} - ${dish.price}/unit</p>
+                <p>{dish.name} - ₹{dish.price}/unit</p>
                 <p>{dish.restoName}</p>
               </div>
               <div className='buttons'>
@@ -60,4 +79,4 @@ const DishList = () => {
   )
 }
 
-export default DishList
+export default DishList;

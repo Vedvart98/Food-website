@@ -19,7 +19,7 @@ const DishType = () => {
         <div className={styles.details}>
           <p><strong>Dish name:</strong> {dish.name}</p>
           <p><strong>Restaurant name:</strong> {dish.restoName}</p>
-          <p><strong>Dish price:</strong> {dish.price}</p>
+          <p><strong>Dish price:</strong> ₹ {dish.price}</p>
           <button className='btn' onClick={() => addToCart(dish._id)}>Add to cart</button>
         </div>
       </div>
